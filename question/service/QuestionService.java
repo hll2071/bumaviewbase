@@ -1,0 +1,6 @@
+// ...existing code...
+public interface QuestionRepository extends JpaRepository<Question,Long> {
+    List<Question> findByQuestionAtOrderByQuestionAtDesc(String questionAt);
+}
+// ...existing code...
+
