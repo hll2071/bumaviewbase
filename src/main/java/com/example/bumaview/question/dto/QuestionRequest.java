@@ -1,5 +1,6 @@
 package com.example.bumaview.question.dto;
 
+import com.example.bumaview.question.domain.QuestionType;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -12,7 +13,7 @@ public class QuestionRequest {
 
     private String company;
 
-    private String status;
+    private QuestionType status;
 
     private String questionAt;
 }

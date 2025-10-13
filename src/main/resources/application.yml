@@ -1,14 +1,29 @@
 spring:
   application:
-    name: gc-board-article-service
+    name: bumaView
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/bumaView
-    username: root
-    password: root
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     open-in-view: false
-    show-sql: false
+    show-sql: ${JPA_SHOW_SQL}
     hibernate:
-      ddl-auto: update
+      ddl-auto: ${JPA_DDL_AUTO}
+
+logging:
+  level:
+    org.springframework.security: ${LOGGING_LEVEL_SECURITY}
+    com.example.bumaview.auth: ${LOGGING_LEVEL_AUTH}
+
+jwt:
+  secret: ${JWT_SECRET}
+  access-token-expiration: ${JWT_ACCESS_TOKEN_EXPIRATION:86400000}
+  refresh-token-expiration: ${JWT_REFRESH_TOKEN_EXPIRATION:604800000}
+
+gemini:
+  api:
+    key: ${GEMINI_API_KEY}
+    url: ${GEMINI_API_URL:https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent}

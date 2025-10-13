@@ -1,6 +1,7 @@
 package com.example.bumaview.question.domain;
 
 import com.example.bumaview.question.dto.QuestionRequest;
+import com.example.bumaview.user.domain.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,29 +24,27 @@ public class Question {
 
     private String company;
 
-    private String status;
+    private QuestionType status;
 
     private String questionAt;
 
-    @Column(nullable = false, columnDefinition = "boolean default false")
-    private Boolean like;
 
-    @Column(nullable = false, columnDefinition = "boolean default false")
-    private Boolean possible;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    public static Question of(QuestionRequest request) {
-        Question question = new Question(request.getContent(), request.getCategory(), request.getCompany(), request.getStatus(),request.getQuestionAt());
+    public static Question of(QuestionRequest request, User user) {
+        Question question = new Question(request.getContent(), request.getCategory(), request.getCompany(), request.getStatus(),request.getQuestionAt(), user);
         return question;
     }
 
-    Question(String content, String category, String company, String status,String questionAt) {
+    Question(String content, String category, String company, QuestionType status,String questionAt, User user) {
         this.content = content;
         this.category = category;
         this.company = company;
         this.status = status;
-        this.questionAt = this.questionAt;
-        this.like = false;
-        this.possible = false;
+        this.questionAt = questionAt;
+        this.user = user;
     }
 
     public void update(QuestionRequest request) {
@@ -54,4 +53,6 @@ public class Question {
         this.company = request.getCompany();
         this.questionAt = request.getQuestionAt();
     }
+
+
 }
