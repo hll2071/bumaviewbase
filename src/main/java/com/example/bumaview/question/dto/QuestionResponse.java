@@ -35,9 +35,9 @@ public class QuestionResponse {
                 question.getCompany(),
                 question.getStatus(),
                 question.getQuestionAt(),
-                question.getPossible(),
+                false, // possible - 기본값
                 isBookmarked,
-                question.getAnswer()
+                null // answer - 기본값
         );
         return questionResponse;
     }
