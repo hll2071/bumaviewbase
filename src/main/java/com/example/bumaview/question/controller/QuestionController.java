@@ -18,7 +18,6 @@ public class QuestionController {
     private final QuestionService questionService;
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public QuestionResponse createQuestion(@RequestBody QuestionRequest request, @AuthenticationPrincipal User user) {
         return questionService.createQuestion(request, user);
     }
@@ -29,13 +28,11 @@ public class QuestionController {
     }
 
     @PutMapping("/{questionId}")
-    @PreAuthorize("hasRole('ADMIN')")
     public QuestionResponse updateQuestion(@RequestBody QuestionRequest request, @PathVariable Long questionId, @AuthenticationPrincipal User user) {
         return questionService.updateQuestion(request, questionId, user);
     }
 
     @DeleteMapping("/{questionId}")
-    @PreAuthorize("hasRole('ADMIN')")
     public String deleteQuestion(@PathVariable Long questionId, @AuthenticationPrincipal User user) {
         return questionService.deleteQuestion(questionId, user);
     }
